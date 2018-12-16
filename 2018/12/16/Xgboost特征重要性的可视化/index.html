@@ -304,7 +304,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png" rel="gallery_cjpr5lc8x0006gwmy8bbddvgf"
+                 href="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png" rel="gallery_cjpr6a2zd0002hwmy1iqhlbdf"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png" itemprop="contentUrl"/>
               </a>
@@ -404,6 +404,9 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
 
   
 
@@ -659,24 +662,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
 
 
 
@@ -713,6 +699,22 @@
 
 
 
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '12ce6a1277447d64ef79',
+          clientSecret: 'cbcd941952ec42614b4e5a1ad39ec185029e0284',
+          repo: 'defang.github.io',
+          owner: 'deFang',
+          admin: ['deFang'],
+          id: location.pathname,
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
   
 
 
@@ -729,6 +731,45 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
 
   
 
