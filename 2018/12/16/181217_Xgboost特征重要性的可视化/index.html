@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="DF&#39;s Blog">
 <meta property="og:description" content="对于决策树模型而言，其相比神经网络一个优势就是还能保留一点的可解释性。当然对于GBDT树，除了第一颗树我们可以从决策树的角度来理解模型是怎么工作，后面的所有树其实都是在学习残差，所以也不是很容易直观理解了。但无论如何，我们总是可以很方便的统计所有树模型的特征的重要性，重要性的衡量依据可以是特征使用次数，也可以特征增益。 对于XGboost模型，一般使用这行代码把特征重要性打印出来1model.ge">
 <meta property="og:image" content="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png">
-<meta property="og:updated_time" content="2018-12-18T16:59:33.784Z">
+<meta property="og:updated_time" content="2018-12-18T17:36:41.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xgboost特征重要性的可视化">
 <meta name="twitter:description" content="对于决策树模型而言，其相比神经网络一个优势就是还能保留一点的可解释性。当然对于GBDT树，除了第一颗树我们可以从决策树的角度来理解模型是怎么工作，后面的所有树其实都是在学习残差，所以也不是很容易直观理解了。但无论如何，我们总是可以很方便的统计所有树模型的特征的重要性，重要性的衡量依据可以是特征使用次数，也可以特征增益。 对于XGboost模型，一般使用这行代码把特征重要性打印出来1model.ge">
@@ -426,7 +426,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png" rel="gallery_cjptzuepi000cvsmyeyzvksyv"
+                 href="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png" rel="gallery_cjpu0w42a000cacmy04pmciir"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.defitting.com/2018/12/16/Xgboost%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96/feature_importance_heatmap.png" itemprop="contentUrl"/>
               </a>
@@ -455,7 +455,7 @@
 <p>开始画图了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">from plotly.offline import plot</div><div class="line">import plotly.graph_objs as go</div><div class="line"></div><div class="line">if not isinstance(fscore_result, dict):</div><div class="line">    raise TypeError(&apos;fscore_result should be a dictionary&apos;)</div><div class="line"></div><div class="line">feature_list = dtrain.feature_names</div><div class="line">rounds = list(fscore_result.keys())</div><div class="line">num_round = len(fscore_result)</div><div class="line">num_feat = len(feature_list)</div><div class="line">z = np.zeros((num_round, num_feat), dtype=np.int)</div><div class="line">for i, round in enumerate(rounds):</div><div class="line">    z[i,:] = array_map(feature_list, fscore_result[round], on_missing=False, default=0.0001)</div><div class="line"></div><div class="line">z_prev = np.pad(z, ((1,0),(0,0)), mode=&apos;constant&apos;, constant_values=0)[:-1]</div><div class="line">z_inc = z - z_prev</div></pre></td></tr></table></figure></p>
 <p>z_inc 即为模型每轮新增使用的特征计数，下面就是画heatmap的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">data= [go.Heatmap( </div><div class="line">​    z=z_inc,</div><div class="line">​    x=feature_list,</div><div class="line">​    y=np.arange(num_round),</div><div class="line">​    colorscale=&apos;Viridis&apos;,</div><div class="line">​    )]</div><div class="line"></div><div class="line">layout = go.Layout(</div><div class="line">    title=&apos;Feature Importance&apos;)</div><div class="line">fig = go.Figure(data=data, layout=layout)</div><div class="line"></div><div class="line">plot(fig, filename=&quot;feat_importance_heatmap.html&quot;)</div></pre></td></tr></table></figure></p>
 <p>最终生成的html如图<br><img src="/2018/12/16/181217_Xgboost特征重要性的可视化/feature_importance_heatmap.png" alt="feature_importance_heatmap"></p>
-<p>相比只看一个最终整体的特征重要性，观察每轮/每几轮 模型迭代使用的特征情况还是能够带来一些新信息的，我们可以看到有些特征，一开始有些用，到后期就没有用了，而有些特征则一直都很用。</p>
+<p>相比只看一个最终整体的特征重要性，观察每轮/每几轮 模型迭代使用的特征情况还是能够带来一些新信息的，我们可以看到有些特征，一开始有些用，到后期就没有用了，而有些特征则一直都很用。<br><img src="http://pjy0da1ui.bkt.clouddn.com/static/images/feature_importance_heatmap.png"></p>
 
       
     </div>
