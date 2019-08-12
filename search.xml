@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[public_loan_component]]></title>
+    <url>%2F2019%2F08%2F12%2Fpublic-loan-component%2F</url>
+    <content type="text"><![CDATA[社融是什么社会融资规模(社融)指的是实体经济从金融体系拿到的钱。可以是金融机构直接给的钱，比如贷款、保险赔偿金等；也可以是金融机构帮着拉皮条搞来的钱，比如非金融企业发行股票、债券等。 虽然是中国特有的经济指标，不过社融基本上可以等价于IMF（国际货币基金组织)倡导的“信用总量”的概念。反映的是实体经济对货币的需求量。 社融统计的是境内机构和个人投资到实体经济的钱，所以不统计境外机构的投资，也不统计金融机构之间的融资，如同业拆借。 社融的组成 表内融资：人民币贷款指的是金融机构出借给非金融企业/机关团体/个人的人民币贷款(贷款合同、票据贴现、垫款、贸易融资等形式都算)。个人房贷是属于该项目下。 外币贷款和人民币贷款一样，只不过币种是外币。 人民币贷款和外币贷款都是“表内业务”，金融机构发放贷款时需要把帐记到资产负债表里头，靠利差来赚钱。 监管会时不时地来查查表，而且还要求银行需要针对这些业务上交存款准备金，还要满足资本充足率等要求 而下面的这三个则是“表外业务”。金融机构主要做的是拉皮条的活，收手续费。资产不入表，所以也没有上面提到的限制。 表外融资（非标融资）： 委托贷款A要跟B借一笔钱，利率期限什么都谈好了，但是B没有放贷资质，所以B委托银行来当个中间人。这笔放款就叫做委托贷款。 信托贷款投资者可以把钱投资到资金信托产品里头(可以简单理解为信托公司卖的基金)，信托公司会把一部分钱拿去放贷，这部分就是信托贷款。 未贴现银行承兑汇票企业A跟B做生意，A欠B钱，于是开了张欠条(汇票)给B。并且A找来了银行，银行承诺一定期限后B可以拿这张票来换钱。B为了早点拿到钱，也可以提前把这张欠条打折卖给银行(打折出售哈银行的过程披称为“贴现”)。“未贴现银行承兑汇票”这个指标指的是B还hold着、还没有打折出售的那部分汇票。 从社融存量的结构上来看的话，人民币贷款占了接近七成。 企业债券融资，非金融企业境内股票融资都比较好理解。 地方政府专项债券，该项融资主要对接公路建设、棚改等基建项目，属于向实体经济提供资金范围]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[快速检测时间序列是否为平稳序列]]></title>
     <url>%2F2018%2F12%2F17%2F181217_%E5%BF%AB%E9%80%9F%E6%A3%80%E6%B5%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%98%AF%E5%90%A6%E4%B8%BA%E5%B9%B3%E7%A8%B3%E5%BA%8F%E5%88%97%2F</url>
     <content type="text"><![CDATA[对于没有学习过随机过程课的我而言，判定一个序列是否为平稳主要靠看图说话…而且机器学习跑模型，一般而言也不需要了解特征这块的性质，但最近做量化模型比较多，如果一个特征是非平稳的话，它可能会给模型一些不好的先验，这是我想避免的。所以这篇文章主要讲一下如何快速判断一个时间序列是否是平稳的。 需要了解一个概念，一般非平稳序列都有单位根(unit root)，所以可以使用单位根检验来判定一个序列是否是平稳，最常用的检验就是A.D.Fuller检验。我把上证综指的日收益率序列画出来，基本上可以看到还是比较平稳的。1234567891011import bottleneck as bnrolmean = bn.move_mean(timeseries, window=14)rolstd = bn.move_std(timeseries, window=14)#Plot rolling statistics:orig = plt.plot(timeseries, color='blue',label='Original')mean = plt.plot(rolmean, color='red', label='Rolling Mean')std = plt.plot(rolstd, color='black', label = 'Rolling Std')plt.legend(loc='best')plt.title('Rolling Mean &amp; Standard Deviation')plt.show(block=False) 下面对这个时间序列使用AD Fuller检验，statsmodels里有现成的函数可以调用。1234567891011121314151617from statsmodels.tsa.stattools import adfullerdftest = adfuller(timeseries, autolag='AIC')dfoutput = pd.Series(dftest[0:4], index=['Test Statistic','p-value','#Lags Used','Number of Observations Used'])for key,value in dftest[4].items(): dfoutput['Critical Value (%s)'%key] = value print (dfoutput) -------------------------------------------Results of Augment Dickey-Fuller Test:Test Statistic -1.266111e+01p-value 1.304351e-23#Lags Used 1.400000e+01Number of Observations Used 3.025000e+03Critical Value (1%) -3.432514e+00Critical Value (5%) -2.862496e+00Critical Value (10%) -2.567279e+00dtype: float64 上面把AD Fuller检验结果也打印出来了。一般我就看一下p-value是否小于0.05，或者看Test Statistic是否小于*Critical Value(5%)，如果小于的话，就表示这是平稳序列。]]></content>
       <tags>
-        <tag>Statistics</tag>
         <tag>Machine Learning</tag>
+        <tag>Statistics</tag>
       </tags>
   </entry>
   <entry>
