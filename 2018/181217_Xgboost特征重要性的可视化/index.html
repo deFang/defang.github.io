@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="NexT" />
+  <meta name="keywords" content="Machine Learning," />
 
 
 
@@ -86,12 +86,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="DF&#39;s Blog">
-<meta property="og:url" content="http://defitting.com/tags/Statistics/index.html">
+<meta name="description" content="对于决策树模型而言，其相比神经网络一个优势就是还能保留一点的可解释性。当然对于GBDT树，除了第一颗树我们可以从决策树的角度来理解模型是怎么工作，后面的所有树其实都是在学习残差，所以也不是很容易直观理解了。但无论如何，我们总是可以很方便的统计所有树模型的特征的重要性，重要性的衡量依据可以是特征使用次数，也可以特征增益。 对于XGboost模型，一般使用这行代码把特征重要性打印出来1model.ge">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xgboost特征重要性的可视化">
+<meta property="og:url" content="http://defitting.com/2018/181217_Xgboost特征重要性的可视化/index.html">
 <meta property="og:site_name" content="DF&#39;s Blog">
+<meta property="og:description" content="对于决策树模型而言，其相比神经网络一个优势就是还能保留一点的可解释性。当然对于GBDT树，除了第一颗树我们可以从决策树的角度来理解模型是怎么工作，后面的所有树其实都是在学习残差，所以也不是很容易直观理解了。但无论如何，我们总是可以很方便的统计所有树模型的特征的重要性，重要性的衡量依据可以是特征使用次数，也可以特征增益。 对于XGboost模型，一般使用这行代码把特征重要性打印出来1model.ge">
+<meta property="og:image" content="https://daniel-images.oss-cn-beijing.aliyuncs.com/img/feature_importance_heatmap.png">
+<meta property="og:updated_time" content="2019-10-08T03:21:33.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DF&#39;s Blog">
+<meta name="twitter:title" content="Xgboost特征重要性的可视化">
+<meta name="twitter:description" content="对于决策树模型而言，其相比神经网络一个优势就是还能保留一点的可解释性。当然对于GBDT树，除了第一颗树我们可以从决策树的角度来理解模型是怎么工作，后面的所有树其实都是在学习残差，所以也不是很容易直观理解了。但无论如何，我们总是可以很方便的统计所有树模型的特征的重要性，重要性的衡量依据可以是特征使用次数，也可以特征增益。 对于XGboost模型，一般使用这行代码把特征重要性打印出来1model.ge">
+<meta name="twitter:image" content="https://daniel-images.oss-cn-beijing.aliyuncs.com/img/feature_importance_heatmap.png">
 
 
 
@@ -121,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://defitting.com/tags/Statistics/"/>
+  <link rel="canonical" href="http://defitting.com/2018/181217_Xgboost特征重要性的可视化/"/>
 
 
 
 
 
-  <title>标签: Statistics | DF's Blog</title>
+  <title>Xgboost特征重要性的可视化 | DF's Blog</title>
   
 
 
@@ -155,7 +162,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,82 +300,226 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Statistics<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://defitting.com/2018/181217_Xgboost特征重要性的可视化/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Fang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/ice_bear.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DF's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/181217_快速检测时间序列是否为平稳序列/" itemprop="url">
-              
-                <span itemprop="name">快速检测时间序列是否为平稳序列</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Xgboost特征重要性的可视化</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-17T00:51:30+08:00"
-              content="2018-12-17" >
-          12-17
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T14:54:14+08:00">
+                2018-12-16
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/181217_Xgboost特征重要性的可视化/" class="leancloud_visitors" data-flag-title="Xgboost特征重要性的可视化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://daniel-images.oss-cn-beijing.aliyuncs.com/img/feature_importance_heatmap.png" rel="gallery_ck1intwqi000ai0myw1ilzkqd"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://daniel-images.oss-cn-beijing.aliyuncs.com/img/feature_importance_heatmap.png" itemprop="contentUrl"/>
+              </a>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          </div>
+        </div>
+      
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/180401_T检验/" itemprop="url">
-              
-                <span itemprop="name">对比T检验卡方检验和F检验</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-01T00:04:37+08:00"
-              content="2018-04-01" >
-          04-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>对于决策树模型而言，其相比神经网络一个优势就是还能保留一点的可解释性。当然对于GBDT树，除了第一颗树我们可以从决策树的角度来理解模型是怎么工作，后面的所有树其实都是在学习残差，所以也不是很容易直观理解了。但无论如何，我们总是可以很方便的统计所有树模型的特征的重要性，重要性的衡量依据可以是特征使用次数，也可以特征增益。</p>
+<p>对于XGboost模型，一般使用这行代码把特征重要性打印出来<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.get_fscore()</div></pre></td></tr></table></figure></p>
+<p>如果是lightGBM模型，改为这行代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">model.feature_importance()</div></pre></td></tr></table></figure></p>
+<p>我最近在训练模型的时候，希望能够看到模型每一步/每几步迭代过程中的特征使用情况，而不只是在模型全部训练完之后看一个整体。所以就写了以下代码，能够把模型迭代过程中的特征使用情况以及变化趋势可视化地展示出来。</p>
+<h1 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h1><p>我们用sklearn提供的wine dataset作为我们的toy example.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> xgboost <span class="keyword">as</span> xgb</div><div class="line"></div><div class="line">wine = datasets.load_wine()</div><div class="line">X = wine[<span class="string">'data'</span>]</div><div class="line">y = wine[<span class="string">'target'</span>]</div></pre></td></tr></table></figure></p>
+<p>训练集，测试集分割，构造DMatrix<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</div><div class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.3</span>, random_state=<span class="number">10</span>)</div><div class="line"></div><div class="line">dtrain = xgb.DMatrix(data=X_train, label=y_train, feature_names=wine[<span class="string">'feature_names'</span>])</div><div class="line">dtest = xgb.DMatrix(data=X_test, label=y_test, feature_names=wine[<span class="string">'feature_names'</span>])</div></pre></td></tr></table></figure></p>
+<p>定义XGboost训练参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">default_param = &#123;<span class="string">'booster'</span>:<span class="string">'gbtree'</span>, <span class="string">'silent'</span>:<span class="number">0</span>, <span class="string">'objective'</span>:<span class="string">'multi:softmax'</span>, <span class="string">'num_class'</span>:<span class="number">3</span>, <span class="string">'eta'</span>:<span class="number">0.1</span>,</div><div class="line">         <span class="string">'max_depth'</span>:<span class="number">4</span>, <span class="string">'eval_metric'</span>:<span class="string">'mlogloss'</span>, <span class="string">'tree_method'</span>:<span class="string">'hist'</span>&#125;</div><div class="line"></div><div class="line">num_round = <span class="number">100</span></div></pre></td></tr></table></figure></p>
+<p>因为我们需要记录模型迭代过程中特征重要性，所以需要写一个callback函数让xgboost在每一轮迭代后调用，这个函数的作用就是记录下当时模型的特征重要性。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">record_fscore</span><span class="params">(fscore_result)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> isinstance(fscore_result, dict):</div><div class="line">        <span class="keyword">raise</span> TypeError(<span class="string">'fscore_result has to be a dictionary'</span>)</div><div class="line">    fscore_result.clear()</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call_back</span><span class="params">(env)</span>:</span></div><div class="line">        <span class="keyword">if</span> env.iteration % <span class="number">2</span> == <span class="number">0</span>: <span class="comment">#每两轮记录一次</span></div><div class="line">            fscore_result[env.iteration] = env.model.get_fscore()</div><div class="line">    <span class="keyword">return</span> call_back</div></pre></td></tr></table></figure></p>
+<p>模型训练<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">fscore_result = &#123;&#125;</div><div class="line">model = xgb.train(default_param, dtrain, num_boost_round=num_round,</div><div class="line">                evals=[(dtrain, <span class="string">'train'</span>), (dtest, <span class="string">'test'</span>)],</div><div class="line">                verbose_eval = <span class="keyword">True</span>,</div><div class="line">                callbacks = [record_fscore(fscore_result)])</div></pre></td></tr></table></figure></p>
+<p>训练完成后，fscore_result是这样子的：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> (fscore_result)</div><div class="line"></div><div class="line">&#123;<span class="number">0</span>: &#123;<span class="string">'proline'</span>: <span class="number">2</span>,</div><div class="line">  <span class="string">'ash'</span>: <span class="number">1</span>,</div><div class="line">  <span class="string">'flavanoids'</span>: <span class="number">2</span>,</div><div class="line">  <span class="string">'alcalinity_of_ash'</span>: <span class="number">1</span>,</div><div class="line">  <span class="string">'color_intensity'</span>: <span class="number">2</span>,</div><div class="line">  <span class="string">'alcohol'</span>: <span class="number">1</span>&#125;,</div><div class="line"> <span class="number">2</span>: &#123;<span class="string">'proline'</span>: <span class="number">6</span>,</div><div class="line">  <span class="string">'ash'</span>: <span class="number">1</span>,</div><div class="line">  <span class="string">'flavanoids'</span>: <span class="number">6</span>,</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<h1 id="特征可视化"><a href="#特征可视化" class="headerlink" title="特征可视化"></a>特征可视化</h1><p>特征可视化我们使用<a href="https://plot.ly/" target="_blank" rel="external">plotly</a>,相比matplotlib的优点在于它会生成一个可交互的html页面，并且它的heatmap灵活性比matplotlib强太多了。</p>
+<p>首先定义一个后面会用到的辅助函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">array_map</span><span class="params">(arr, mapping, default=np.NaN, on_missing=<span class="string">'raise'</span>, return_pandas=False)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    把arr的值，通过给定的一个映射关系mapping，应设成mapping中的value</div><div class="line">    mapping: dict/pd.Series/(key_array, value_array)</div><div class="line">    default: 如果有值不存在于mapping中，fill成default</div><div class="line">    on_missing: 'raise'/'fill', 默认如果有不存在的值，会抛出异常，否则用default填充</div><div class="line">    return_pandas:  如果mapping是Series或者DataFrame，是否返回Series和DataFrame（默认为False，返回ndarray）</div><div class="line"></div><div class="line">    example:</div><div class="line">    &gt;&gt;&gt; import numpy as np</div><div class="line">    &gt;&gt;&gt; import pandas as pd</div><div class="line">    &gt;&gt;&gt; arr = np.array([1, 2, 1, 3, 2])</div><div class="line">    &gt;&gt;&gt; mapping = &#123;0:1, 1:0, 2:3, 3:2&#125;</div><div class="line">    &gt;&gt;&gt; array_map(arr, mapping)</div><div class="line">    array([0, 3, 0, 2, 3])</div><div class="line">    &gt;&gt;&gt; array_map(arr, pd.Series([0, 1, 2, 3], index=[1, 0, 3, 2]))</div><div class="line">    array([0, 3, 0, 2, 3])</div><div class="line">    """</div><div class="line">    <span class="keyword">if</span> isinstance(mapping, tuple):</div><div class="line">        arr_key = np.array(mapping[<span class="number">0</span>])</div><div class="line">        arr_value = np.array(mapping[<span class="number">1</span>])</div><div class="line">        <span class="keyword">if</span> len(arr_value.shape) == <span class="number">0</span>:</div><div class="line">            arr_key, arr_value = np.broadcast_arrays(arr_key, arr_value)</div><div class="line">        <span class="keyword">if</span> on_missing == <span class="string">"raise"</span>:</div><div class="line">            idx_mapping = pd.Series(np.arange(arr_key.shape[<span class="number">0</span>], dtype=np.uint32), index=arr_key)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            arr_value = np.append(arr_value, np.expand_dims(default, axis=<span class="number">0</span>), axis=<span class="number">0</span>)</div><div class="line">            idx_mapping = pd.Series(np.arange(arr_key.shape[<span class="number">0</span>], dtype=np.uint32), index=arr_key)</div><div class="line">        mapped_indices = array_map(arr, idx_mapping, default=arr_key.shape[<span class="number">0</span>], on_missing=on_missing, return_pandas=<span class="keyword">False</span>)</div><div class="line">        <span class="keyword">return</span> arr_value[mapped_indices]</div><div class="line">    ks, indices = np.unique(arr, return_inverse=<span class="keyword">True</span>)</div><div class="line">    <span class="keyword">if</span> isinstance(mapping, pd.Series) <span class="keyword">or</span> isinstance(mapping, pd.DataFrame):</div><div class="line">        <span class="keyword">if</span> on_missing == <span class="string">'raise'</span>:</div><div class="line">            n_idx = np.unique(mapping.index.values)</div><div class="line">            n_all = np.unique(np.concatenate([ks, mapping.index.values]))</div><div class="line">            <span class="keyword">if</span> n_all.shape[<span class="number">0</span>] &gt; n_idx.shape[<span class="number">0</span>]:</div><div class="line">                <span class="keyword">raise</span> Exception(<span class="string">f"MISSING VALUE IN MAPPING: <span class="subst">&#123;set(n_all) - set(n_idx)&#125;</span>"</span>)</div><div class="line">        ans = mapping.reindex(ks, fill_value=default).values[indices]</div><div class="line">        <span class="keyword">if</span> return_pandas:</div><div class="line">            <span class="keyword">if</span> isinstance(mapping, pd.Series):</div><div class="line">                <span class="keyword">return</span> pd.Series(ans, index=ks[indices])</div><div class="line">            <span class="keyword">elif</span> isinstance(mapping, pd.DataFrame):</div><div class="line">                <span class="keyword">return</span> pd.DataFrame(ans, columns=mapping.columns, index=ks[indices])</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> ans</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">if</span> on_missing == <span class="string">'raise'</span>:</div><div class="line">            <span class="keyword">return</span> np.array([mapping[k] <span class="keyword">for</span> k <span class="keyword">in</span> ks])[indices]</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> np.array([mapping.get(k, default) <span class="keyword">for</span> k <span class="keyword">in</span> ks])[indices]</div></pre></td></tr></table></figure>
+<p>开始画图了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">from plotly.offline import plot</div><div class="line">import plotly.graph_objs as go</div><div class="line"></div><div class="line">if not isinstance(fscore_result, dict):</div><div class="line">    raise TypeError(&apos;fscore_result should be a dictionary&apos;)</div><div class="line"></div><div class="line">feature_list = dtrain.feature_names</div><div class="line">rounds = list(fscore_result.keys())</div><div class="line">num_round = len(fscore_result)</div><div class="line">num_feat = len(feature_list)</div><div class="line">z = np.zeros((num_round, num_feat), dtype=np.int)</div><div class="line">for i, round in enumerate(rounds):</div><div class="line">    z[i,:] = array_map(feature_list, fscore_result[round], on_missing=False, default=0.0001)</div><div class="line"></div><div class="line">z_prev = np.pad(z, ((1,0),(0,0)), mode=&apos;constant&apos;, constant_values=0)[:-1]</div><div class="line">z_inc = z - z_prev</div></pre></td></tr></table></figure></p>
+<p>z_inc 即为模型每轮新增使用的特征计数，下面就是画heatmap的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">data= [go.Heatmap( </div><div class="line">​    z=z_inc,</div><div class="line">​    x=feature_list,</div><div class="line">​    y=np.arange(num_round),</div><div class="line">​    colorscale=&apos;Viridis&apos;,</div><div class="line">​    )]</div><div class="line"></div><div class="line">layout = go.Layout(</div><div class="line">    title=&apos;Feature Importance&apos;)</div><div class="line">fig = go.Figure(data=data, layout=layout)</div><div class="line"></div><div class="line">plot(fig, filename=&quot;feat_importance_heatmap.html&quot;)</div></pre></td></tr></table></figure></p>
+<p>最终生成的html如图</p>
+<p><img src="https://daniel-images.oss-cn-beijing.aliyuncs.com/img/feature_importance_heatmap.png" alt="feature_importance_heatmap.png"></p>
+<p>相比只看一个最终整体的特征重要性，观察每轮/每几轮 模型迭代使用的特征情况还是能够带来一些新信息的，我们可以看到有些特征，一开始有些用，到后期就没有用了，而有些特征则一直都很用。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/180401_T检验/" rel="next" title="对比T检验卡方检验和F检验">
+                <i class="fa fa-chevron-left"></i> 对比T检验卡方检验和F检验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/181217_快速检测时间序列是否为平稳序列/" rel="prev" title="快速检测时间序列是否为平稳序列">
+                快速检测时间序列是否为平稳序列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -376,6 +527,14 @@
 
 
           
+
+  
+      <div class="comments" id="comments">
+        <div id="gitalk-container"></div>
+      </div>
+
+  
+
 
         </div>
         
@@ -396,8 +555,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -468,6 +636,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模型训练"><span class="nav-number">1.</span> <span class="nav-text">模型训练</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征可视化"><span class="nav-number">2.</span> <span class="nav-text">特征可视化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -601,6 +785,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -641,6 +829,26 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '12ce6a1277447d64ef79',
+          clientSecret: 'cbcd941952ec42614b4e5a1ad39ec185029e0284',
+          repo: 'defang.github.io',
+          owner: 'deFang',
+          admin: ['deFang'],
+
+          id: md5(location.pathname),
+
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')
+    </script>
 
 
   

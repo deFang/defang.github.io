@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="NexT" />
+  <meta name="keywords" content="Machine Learning,Statistics," />
 
 
 
@@ -86,12 +86,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="DF&#39;s Blog">
-<meta property="og:url" content="http://defitting.com/tags/Statistics/index.html">
+<meta name="description" content="对于没有学习过随机过程课的我而言，判定一个序列是否为平稳主要靠看图说话…而且机器学习跑模型，一般而言也不需要了解特征这块的性质，但最近做量化模型比较多，如果一个特征是非平稳的话，它可能会给模型一些不好的先验，这是我想避免的。所以这篇文章主要讲一下如何快速判断一个时间序列是否是平稳的。 需要了解一个概念，一般非平稳序列都有单位根(unit root)，所以可以使用单位根检验来判定一个序列是否是平稳，">
+<meta name="keywords" content="Machine Learning,Statistics">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速检测时间序列是否为平稳序列">
+<meta property="og:url" content="http://defitting.com/2018/181217_快速检测时间序列是否为平稳序列/index.html">
 <meta property="og:site_name" content="DF&#39;s Blog">
+<meta property="og:description" content="对于没有学习过随机过程课的我而言，判定一个序列是否为平稳主要靠看图说话…而且机器学习跑模型，一般而言也不需要了解特征这块的性质，但最近做量化模型比较多，如果一个特征是非平稳的话，它可能会给模型一些不好的先验，这是我想避免的。所以这篇文章主要讲一下如何快速判断一个时间序列是否是平稳的。 需要了解一个概念，一般非平稳序列都有单位根(unit root)，所以可以使用单位根检验来判定一个序列是否是平稳，">
+<meta property="og:image" content="https://www.outdoorwomensalliance.com/wp-content/uploads/2016/01/half-dome-yosemite-valley-visitation.jpg">
+<meta property="og:updated_time" content="2019-10-08T02:11:10.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DF&#39;s Blog">
+<meta name="twitter:title" content="快速检测时间序列是否为平稳序列">
+<meta name="twitter:description" content="对于没有学习过随机过程课的我而言，判定一个序列是否为平稳主要靠看图说话…而且机器学习跑模型，一般而言也不需要了解特征这块的性质，但最近做量化模型比较多，如果一个特征是非平稳的话，它可能会给模型一些不好的先验，这是我想避免的。所以这篇文章主要讲一下如何快速判断一个时间序列是否是平稳的。 需要了解一个概念，一般非平稳序列都有单位根(unit root)，所以可以使用单位根检验来判定一个序列是否是平稳，">
+<meta name="twitter:image" content="https://www.outdoorwomensalliance.com/wp-content/uploads/2016/01/half-dome-yosemite-valley-visitation.jpg">
 
 
 
@@ -121,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://defitting.com/tags/Statistics/"/>
+  <link rel="canonical" href="http://defitting.com/2018/181217_快速检测时间序列是否为平稳序列/"/>
 
 
 
 
 
-  <title>标签: Statistics | DF's Blog</title>
+  <title>快速检测时间序列是否为平稳序列 | DF's Blog</title>
   
 
 
@@ -155,7 +162,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -293,82 +300,215 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Statistics<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://defitting.com/2018/181217_快速检测时间序列是否为平稳序列/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Fang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/ice_bear.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="DF's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/181217_快速检测时间序列是否为平稳序列/" itemprop="url">
-              
-                <span itemprop="name">快速检测时间序列是否为平稳序列</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">快速检测时间序列是否为平稳序列</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-17T00:51:30+08:00"
-              content="2018-12-17" >
-          12-17
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T00:51:30+08:00">
+                2018-12-17
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/181217_快速检测时间序列是否为平稳序列/" class="leancloud_visitors" data-flag-title="快速检测时间序列是否为平稳序列">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  447
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://www.outdoorwomensalliance.com/wp-content/uploads/2016/01/half-dome-yosemite-valley-visitation.jpg" rel="gallery_ck1intwqk000bi0mycu7gfjj3"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://www.outdoorwomensalliance.com/wp-content/uploads/2016/01/half-dome-yosemite-valley-visitation.jpg" itemprop="contentUrl"/>
+              </a>
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          </div>
+        </div>
+      
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/180401_T检验/" itemprop="url">
-              
-                <span itemprop="name">对比T检验卡方检验和F检验</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-04-01T00:04:37+08:00"
-              content="2018-04-01" >
-          04-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <p>对于没有学习过随机过程课的我而言，判定一个序列是否为平稳主要靠看图说话…而且机器学习跑模型，一般而言也不需要了解特征这块的性质，但最近做量化模型比较多，如果一个特征是非平稳的话，它可能会给模型一些不好的先验，这是我想避免的。所以这篇文章主要讲一下如何快速判断一个时间序列是否是平稳的。</p>
+<p>需要了解一个概念，一般非平稳序列都有单位根(unit root)，所以可以使用单位根检验来判定一个序列是否是平稳，最常用的检验就是<a href="https://en.wikipedia.org/wiki/Augmented_Dickey%E2%80%93Fuller_test" target="_blank" rel="external">A.D.Fuller检验</a>。我把上证综指的日收益率序列画出来，基本上可以看到还是比较平稳的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> bottleneck <span class="keyword">as</span> bn</div><div class="line">rolmean = bn.move_mean(timeseries, window=<span class="number">14</span>)</div><div class="line">rolstd = bn.move_std(timeseries, window=<span class="number">14</span>)</div><div class="line"></div><div class="line"><span class="comment">#Plot rolling statistics:</span></div><div class="line">orig = plt.plot(timeseries, color=<span class="string">'blue'</span>,label=<span class="string">'Original'</span>)</div><div class="line">mean = plt.plot(rolmean, color=<span class="string">'red'</span>, label=<span class="string">'Rolling Mean'</span>)</div><div class="line">std = plt.plot(rolstd, color=<span class="string">'black'</span>, label = <span class="string">'Rolling Std'</span>)</div><div class="line">plt.legend(loc=<span class="string">'best'</span>)</div><div class="line">plt.title(<span class="string">'Rolling Mean &amp; Standard Deviation'</span>)</div><div class="line">plt.show(block=<span class="keyword">False</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="https://i.loli.net/2019/10/08/Qs7Bevxy9zREFwZ.png" alt="上证综指日收益率"></p>
+<p>下面对这个时间序列使用AD Fuller检验，<a href="https://www.statsmodels.org/stable/index.html" target="_blank" rel="external">statsmodels</a>里有现成的函数可以调用。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> statsmodels.tsa.stattools <span class="keyword">import</span> adfuller</div><div class="line">dftest = adfuller(timeseries, autolag=<span class="string">'AIC'</span>)</div><div class="line">dfoutput = pd.Series(dftest[<span class="number">0</span>:<span class="number">4</span>], index=[<span class="string">'Test Statistic'</span>,<span class="string">'p-value'</span>,<span class="string">'#Lags Used'</span>,<span class="string">'Number of Observations Used'</span>])</div><div class="line"><span class="keyword">for</span> key,value <span class="keyword">in</span> dftest[<span class="number">4</span>].items():</div><div class="line">    dfoutput[<span class="string">'Critical Value (%s)'</span>%key] = value </div><div class="line"><span class="keyword">print</span> (dfoutput)</div><div class="line">  </div><div class="line">-------------------------------------------</div><div class="line">Results of Augment Dickey-Fuller Test:</div><div class="line">Test Statistic                <span class="number">-1.266111e+01</span></div><div class="line">p-value                        <span class="number">1.304351e-23</span></div><div class="line"><span class="comment">#Lags Used                     1.400000e+01</span></div><div class="line">Number of Observations Used    <span class="number">3.025000e+03</span></div><div class="line">Critical Value (<span class="number">1</span>%)           <span class="number">-3.432514e+00</span></div><div class="line">Critical Value (<span class="number">5</span>%)           <span class="number">-2.862496e+00</span></div><div class="line">Critical Value (<span class="number">10</span>%)          <span class="number">-2.567279e+00</span></div><div class="line">dtype: float64</div></pre></td></tr></table></figure></p>
+<p>上面把AD Fuller检验结果也打印出来了。一般我就看一下<em>p-value</em>是否小于0.05，或者看<em>Test Statistic</em>是否小于*Critical Value(5%)，如果小于的话，就表示这是平稳序列。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"><i class="fa fa-tag"></i> Machine Learning</a>
+          
+            <a href="/tags/Statistics/" rel="tag"><i class="fa fa-tag"></i> Statistics</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/181217_Xgboost特征重要性的可视化/" rel="next" title="Xgboost特征重要性的可视化">
+                <i class="fa fa-chevron-left"></i> Xgboost特征重要性的可视化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/190822_public-loan-component/" rel="prev" title="社融是什么">
+                社融是什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -376,6 +516,14 @@
 
 
           
+
+  
+      <div class="comments" id="comments">
+        <div id="gitalk-container"></div>
+      </div>
+
+  
+
 
         </div>
         
@@ -601,6 +749,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -641,6 +793,26 @@
 
 
 
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <script src="/js/src/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '12ce6a1277447d64ef79',
+          clientSecret: 'cbcd941952ec42614b4e5a1ad39ec185029e0284',
+          repo: 'defang.github.io',
+          owner: 'deFang',
+          admin: ['deFang'],
+
+          id: md5(location.pathname),
+
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')
+    </script>
 
 
   
