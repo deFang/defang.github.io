@@ -1,5 +1,5 @@
+http://defitting.com/2019/191209-读书笔记-逆向投资/
 http://defitting.com/2019/191009-中顺洁柔/
 http://defitting.com/2019/191008-值得买/
 http://defitting.com/2019/190822_public-loan-component/
 http://defitting.com/2018/181217_快速检测时间序列是否为平稳序列/
-http://defitting.com/2018/181217_Xgboost特征重要性的可视化/
